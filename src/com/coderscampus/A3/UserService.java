@@ -1,47 +1,64 @@
 package com.coderscampus.A3;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class UserService {
-	// A list to store users
-		private List<User> users = new ArrayList<>();
-		// Path to the HTML file containing the user data
-		String csvFilePath = "/Users/sarahcox/git/SarahCox_Assignment_3/data.txt file.txt";
+    // Array to store users
+    private User[] users;
+    // Path to the CSV file containing the user data
+    private String csvFilePath = "/Users/sarahcox/git/SarahCox_Assignment_3/data.txt";
 
-		// Parse the CSV file and load the user data into UserService
-		String csvFile = "csvFilePath"; // Update this to your actual file path
-		String line;
-	// Split the line by commas to extract email, password, and name
-		String csvSplitBy = ",";
-		// Open the local file for reading
+    // Constructor to initialize the UserService and load users from the CSV file
+    public UserService() {
+        loadUsersFromCsv();
+    }
 
-		// List to hold the data
-		List<String[]> dataList = new ArrayList<>() {
+    // Method to parse the CSV file and load the user data into UserService
+    private void loadUsersFromCsv() {
+        String line;
+        String csvSplitBy = ",";
+        int userCount = 0;
 
-		try(
-		BufferedReader br = new BufferedReader(new FileReader(csvFile)))
-		{
-			// Read each line from the CSV file
-			while ((line = br.readLine()) != null) {
-				// Split the line by the comma delimiter
-				String[] data = line.split(csvSplitBy);
-				// Add the data array to the list
-				dataList.add(data);
-			}
-		}catch(
-		IOException e)
-		{
-			e.printStackTrace();
-		}
+        // First, count the number of users in the CSV file
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            while ((line = br.readLine()) != null) {
+                userCount++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		// Print the resulting list
-		for(
-		String[] data:dataList)
-		{
-			System.out.println("Email: " + data[0] + ", Password: " + data[1] + ", Name: " + data[2]);
-		}
-	}
-	}
+        // Initialize the users array with the counted size
+        users = new User[userCount];
+
+        // Now, read the CSV file again to populate the users array
+        try (BufferedReader br = new BufferedReader(new FileReader(csvFilePath))) {
+            int index = 0;
+            while ((line = br.readLine()) != null) {
+                // Split the line by the comma delimiter
+                String[] data = line.split(csvSplitBy);
+                // Create a new User object and add it to the users array
+                if (data.length >= 3) { // Ensure there are enough fields
+                    String username = data[0];
+                    String password = data[1];
+                    String name = data[2];
+                    users[index++] = new User(username, password, name);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Print the resulting list of users
+        for (User  user : users) {
+            System.out.println("Username: " + user.getUsername() + ", Password: " + user.getPassword() + ", Name: " + user.getName());
+        }
+    }
+
+    // Method to get the users array
+    public User[] getUsers() {
+        return users;
+    }
 }
