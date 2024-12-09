@@ -1,8 +1,9 @@
 package com.coderscampus.A3;
 
+//public class UserApplication {
 public class UserApplication {
 
-	public static void main(String[] args) {
+//Imports
 		import java.io.BufferedReader;
 		import java.io.File;
 		import java.io.FileReader;
@@ -10,13 +11,14 @@ public class UserApplication {
 		import java.util.Scanner;
 		import java.util.regex.Matcher;
 		import java.util.regex.Pattern;
-
-		public class UserApplication {
-
+//		public static void main(String[] args) {
 			public static void main(String[] args) {
 
 		// Initialize UserService to handle user operations
 				UserService userService = new UserService();
+				
+		// Get all users from the UserService
+		        User[] allUsers = userService.getUsers();
 
 		// Add user to the service (trim and convert to lower case)
 				userService.addUser(new User(email.toLowerCase(), password, name));
