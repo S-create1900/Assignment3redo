@@ -5,8 +5,8 @@ import java.util.Scanner;
 public class UserApplication1 {
 
 	public static void main(String[] args) throws Exception {
-		// Path to the HTML file containing the user data
-		String csvFilePath = "/Users/sarahcox/eclipse-workspace/Assignment3redovs2/data.txt";
+//		// Path to the HTML file containing the user data
+//		String csvFilePath = "/Users/sarahcox/eclipse-workspace/Assignment3redovs2/data.txt";
 
 		// Initialize UserService to handle user operations
 		UserService userService = new UserService();
@@ -25,11 +25,8 @@ public class UserApplication1 {
 			System.out.println("Enter password:");
 			String inputPassword = scanner.nextLine().trim(); // Trim input
 
-			System.out.println("Enter name:");
-			String inputName = scanner.nextLine().trim(); // Trim input
-
 			// Authenticate user by checking the credentials
-			User authenticatedUser = ((UserService) userService).authenticate(inputUsername, inputPassword, inputName);
+			User authenticatedUser = userService.authenticate(inputUsername, inputPassword);
 
 			if (authenticatedUser != null) {
 				// If authentication is successful

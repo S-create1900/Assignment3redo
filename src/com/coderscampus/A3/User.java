@@ -11,9 +11,6 @@ public class User {
 		this.name = name;
 	}
 
-//	public User() {
-//	}
-
 	// getters and setters for the above instance variables.
 	public String getUsername() {
 		return username;
@@ -40,4 +37,3 @@ public class User {
 	}
 
 }
-

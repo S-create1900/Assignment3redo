@@ -3,7 +3,6 @@ package com.coderscampus.A3;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
 
 public class UserService {
 
@@ -21,11 +20,10 @@ public class UserService {
 	}
 
 	// Method to authenticate a user
-	public User authenticate(String username, String password, String name) {
+	public User authenticate(String username, String password) {
 		for (int i = 0; i < userCount; i++) {
 			User user = users[i];
-			if (user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password)
-					&& user.getName().equalsIgnoreCase(name)) {
+			if (user.getUsername().equalsIgnoreCase(username) && user.getPassword().equals(password)) {
 				return user; // Return the authenticated user
 			}
 		}
